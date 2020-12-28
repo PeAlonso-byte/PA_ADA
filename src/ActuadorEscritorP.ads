@@ -28,7 +28,7 @@ package ActuadorEscritorP is
       procedure increment;
       procedure decrement;
    private
-      prodPlanta:Integer:=0;
+      prodPlanta:Integer:=15;
    end produccionPlanta;
 
 end ActuadorEscritorP;
