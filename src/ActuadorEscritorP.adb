@@ -6,15 +6,17 @@ package body ActuadorEscritorP is
          --he comentado en el main esperar los 260ms
          --nextTime:=Clock+salidaPeriodo;
          flagE:= 0;
+
+
       end iniciar;
                --abrir, cerrar, aumentar...
-      procedure escribir(dato:ActuadorDato) is
+      procedure escribir(dato:ActuadorDato; planta: access produccionPlanta) is
       begin
          null;   --aqui delay until 6 decimas
 
          retardoE:=Ada.Real_Time.Clock+tempE;
          delay until retardoE;
-
+         --prodPlanta:=planta;
          escribiendo:=dato;
          nextTime:=Clock+salidaPeriodo; -- Las operaciones se realizan en el timer a los 3 segundos.
          if flagE = 0 then
@@ -31,9 +33,11 @@ package body ActuadorEscritorP is
          --escribir dato escribiendo, aumentar o reducir la produccion
 
          if escribiendo = 1 then
-            produccionPlanta.increment;
+            --prodPlanta.increment;
+            null;
          elsif escribiendo = -1 then
-            produccionPlanta.decrement;
+            --prodPlanta.decrement;
+            null;
          end if;
          flagE:=0;
          null;

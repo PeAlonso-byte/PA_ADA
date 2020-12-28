@@ -23,7 +23,7 @@ procedure Main is
       salida:ActuadorEscritor;
       flagEscribir:Integer:=0;
       tempPlanta:ActuadorDato;
-      contadorProduccion:produccionPlanta;
+      contadorProduccion: aliased produccionPlanta;
    begin
       entrada.iniciar;
       loop
@@ -31,7 +31,7 @@ procedure Main is
             accept leer(datoEntrada:out SensorDato) do
                --no hacer el delay aqui dentro,hacerlo fuera del end select
                --hacer aqui lo minimo posible
-               entrada.leer(datoEntrada);
+               entrada.leer(datoEntrada, contadorProduccion'Access);
                --devolver el dato
             end leer;
          or
@@ -43,7 +43,7 @@ procedure Main is
 
          if flagEscribir = 1 then
             flagEscribir:=0;
-            salida.escribir(tempPlanta);
+            salida.escribir(tempPlanta, contadorProduccion'Access);
          end if;
 
       end loop;

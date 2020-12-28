@@ -6,11 +6,18 @@ use Ada.Real_Time;
 with Text_IO;
 package ActuadorEscritorP is
    type ActuadorDato is new Integer;
+   protected type produccionPlanta is
+      function readPlanta return Integer;
+      procedure increment;
+      procedure decrement;
+   private
+      prodPlanta:Integer:=15;
+   end produccionPlanta;
    protected type ActuadorEscritor is
 
       pragma Interrupt_Priority(System.Interrupt_Priority'Last);
       procedure iniciar;
-      procedure escribir(dato:ActuadorDato);
+      procedure escribir(dato:ActuadorDato; planta: access produccionPlanta);
       procedure Timer(event: in out Ada.Real_Time.Timing_Events.Timing_Event);
    private
       nextTime:Ada.Real_Time.Time;
@@ -21,15 +28,8 @@ package ActuadorEscritorP is
       retardoE:Ada.Real_Time.Time;
       tempE:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(600);
       flagE:Integer:=0;
+      prodPlanta: produccionPlanta;
    end ActuadorEscritor;
-
-   protected type produccionPlanta is
-      function readPlanta return Integer;
-      procedure increment;
-      procedure decrement;
-   private
-      prodPlanta:Integer:=15;
-   end produccionPlanta;
 
 end ActuadorEscritorP;
 

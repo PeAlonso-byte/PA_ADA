@@ -7,9 +7,10 @@ package body SensorLectorP is
          Ada.Real_Time.Timing_Events.Set_Handler(entradaJitterControl, nextTime, Timer'Access);
       end iniciar;
 
-      entry leer(dato:out SensorDato)
+      entry leer(dato:out SensorDato; planta: access produccionPlanta)
         when datoDisponible is
       begin
+         --prodPlanta:=planta;
          dato:=leyendo;
          datoDisponible:=False;
          Text_IO.Put_Line("Leer");
@@ -21,6 +22,8 @@ package body SensorLectorP is
          --hacer delay until para 15 decimas, independiente con las otras plantas
          retardoS:=Ada.Real_Time.Clock+tempS;
          delay until retardoS;
+
+         --leyendo:= prodPlanta.readPlanta(); -- cargamos el dato en leyendo
 
          datoDisponible:=True;
          nextTime:=nextTime+entradaMedicion; -- Para que una vez que entre, se hagan las lecturas cada segundo.
