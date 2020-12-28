@@ -5,6 +5,7 @@ package body ActuadorEscritorP is
          null;
          --he comentado en el main esperar los 260ms
          --nextTime:=Clock+salidaPeriodo;
+         flagE:= 0;
       end iniciar;
                --abrir, cerrar, aumentar...
       procedure escribir(dato:ActuadorDato) is
@@ -16,8 +17,12 @@ package body ActuadorEscritorP is
 
          escribiendo:=dato;
          nextTime:=Clock+salidaPeriodo; -- Las operaciones se realizan en el timer a los 3 segundos.
-         Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);
-         Text_IO.Put_Line("Escribir");
+         if flagE = 0 then
+            Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);
+            Text_IO.Put_Line("Se ha mandado actuar");
+            flagE:=1;
+         end if;
+
       end escribir;
 
       procedure Timer(event:in out Ada.Real_Time.Timing_Events.Timing_Event) is
@@ -25,7 +30,12 @@ package body ActuadorEscritorP is
          --cada 3 s
          --escribir dato escribiendo, aumentar o reducir la produccion
 
-
+         if escribiendo = 1 then
+            produccionPlanta.increment;
+         elsif escribiendo = -1 then
+            produccionPlanta.decrement;
+         end if;
+         flagE:=0;
          null;
 
          --considerar si hay que activar el timer o no

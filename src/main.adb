@@ -85,6 +85,12 @@ procedure Main is
             Text_IO.Put_Line("ESTABLE - CONSUMO: " & consumoCiudad'Img & " PRODUCCION: " &consumoTotalPlantas'Img);
          end if;
 
+         if consumoDiff > 0 then
+            datoSalida:=0; -- Si datoSalida = 0 quiere decir incrementar
+         elsif consumoDiff < 0 then
+            datoSalida:=1; -- Si datoSalida = 0 quiere decir decrementar
+         end if;
+
          if consumoDiff >= 3 then
             pl1.escribir(datoSalida);
             Text_IO.Put_Line("INCREMENTANDO PRODUCCION PLANTA 1");
