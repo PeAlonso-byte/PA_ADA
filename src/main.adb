@@ -62,6 +62,8 @@ procedure Main is
       consumoTotalPlantas:SensorDato:=0;
       porcentajeDiff:SensorDato:=0;
       consumoDiff:SensorDato:=0;
+      retardoA:Ada.Real_Time.Time;
+      tempA:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(1000);
    begin
       loop
          consumoTotalPlantas:=0;
@@ -124,9 +126,8 @@ procedure Main is
             pl1.escribir(datoSalida);
             Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 1");
          end if;
-
-
-
+         retardoA:= Ada.Real_Time.Clock+tempA; -- Se añade un retardo a la tarea control para que se ejecute cada 1s
+	 delay until retardoA;
 
          --procesar datos
 
