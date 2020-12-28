@@ -17,8 +17,19 @@ package ActuadorEscritorP is
       escribiendo:ActuadorDato;
                salidaJitterControl:Ada.Real_Time.Timing_Events.Timing_Event;
      --300ms -40 ms del output jitter
-      salidaPeriodo:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(260);
-
+      salidaPeriodo:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(3000);
+      retardoE:Ada.Real_Time.Time;
+      tempE:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(600);
+      flagE:Integer:=0;
    end ActuadorEscritor;
+
+   protected type produccionPlanta is
+      function readPlanta return Integer;
+      procedure increment;
+      procedure decrement;
+   private
+      prodPlanta:Integer:=0;
+   end produccionPlanta;
+
 end ActuadorEscritorP;
 

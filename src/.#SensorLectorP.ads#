@@ -22,8 +22,8 @@ package SensorLectorP is
      --400ms -20ms del input jitter
       entradaPeriodo:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(300);
       entradaMedicion:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(1000);
-      retardo:Ada.Real_Time.Time;
-      temp:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(15);
+      retardoS:Ada.Real_Time.Time;
+      tempS:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(15);
 
    end SensorLector;
 end SensorLectorP;
