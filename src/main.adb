@@ -8,22 +8,24 @@ with SensorLectorP;
 use SensorLectorP;
 with ActuadorEscritorP;
 use ActuadorEscritorP;
+with ProduccionPlantaP;
+use ProduccionPlantaP;
 
 --ALGORITMO DE CONTROL
 
 procedure Main is
-
    task type tareaPlanta is
       entry leer(datoEntrada:out SensorDato);
       entry escribir(datoSalida:ActuadorDato);
    end tareaPlanta;
 
    task body tareaPlanta is  --crear 3 instancias
-      entrada:SensorLector; --cada planta
-      salida:ActuadorEscritor;
+
       flagEscribir:Integer:=0;
       tempPlanta:ActuadorDato;
       contadorProduccion: aliased produccionPlanta;
+      entrada:SensorLector(contadorProduccion'Access); --cada planta
+      salida:ActuadorEscritor(contadorProduccion'Access);
    begin
       entrada.iniciar;
       loop
@@ -31,7 +33,7 @@ procedure Main is
             accept leer(datoEntrada:out SensorDato) do
                --no hacer el delay aqui dentro,hacerlo fuera del end select
                --hacer aqui lo minimo posible
-               entrada.leer(datoEntrada, contadorProduccion'Access);
+               entrada.leer(datoEntrada);
                --devolver el dato
             end leer;
          or
@@ -43,7 +45,7 @@ procedure Main is
 
          if flagEscribir = 1 then
             flagEscribir:=0;
-            salida.escribir(tempPlanta, contadorProduccion'Access);
+            salida.escribir(tempPlanta);
          end if;
 
       end loop;

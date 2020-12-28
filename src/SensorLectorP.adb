@@ -1,5 +1,5 @@
 package body SensorLectorP is
-      protected body SensorLector is
+      protected body SensorLector(planta: access produccionPlanta) is
       procedure iniciar is --arranca el temporizador una vez haya pasado un intervalo de tiempo
       begin
          datoDisponible:=False;
@@ -7,10 +7,10 @@ package body SensorLectorP is
          Ada.Real_Time.Timing_Events.Set_Handler(entradaJitterControl, nextTime, Timer'Access);
       end iniciar;
 
-      entry leer(dato:out SensorDato; planta: access produccionPlanta)
+      entry leer(dato:out SensorDato)
         when datoDisponible is
       begin
-         --prodPlanta:=planta;
+
          dato:=leyendo;
          datoDisponible:=False;
          Text_IO.Put_Line("Leer");
@@ -23,7 +23,7 @@ package body SensorLectorP is
          retardoS:=Ada.Real_Time.Clock+tempS;
          delay until retardoS;
 
-         --leyendo:= prodPlanta.readPlanta(); -- cargamos el dato en leyendo
+         leyendo:= planta.readPlanta; -- cargamos el dato en leyendo
 
          datoDisponible:=True;
          nextTime:=nextTime+entradaMedicion; -- Para que una vez que entre, se hagan las lecturas cada segundo.

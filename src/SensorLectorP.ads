@@ -3,17 +3,15 @@ with Ada.Real_Time;
 use Ada.Real_Time;
 with Ada.Real_Time.Timing_Events;
 use Ada.Real_Time;
-with ActuadorEscritorP;
-use ActuadorEscritorP;
 with Text_IO;
+with ProduccionPlantaP;
+use ProduccionPlantaP;
 package SensorLectorP is
    type SensorDato is new Integer;
-   protected type SensorLector is
-
-
+   protected type SensorLector(planta: access produccionPlanta) is
       pragma Interrupt_Priority(System.Interrupt_Priority'Last);
       procedure iniciar;
-      entry leer(dato:out SensorDato; planta: access produccionPlanta);
+      entry leer(dato:out SensorDato);
       procedure Timer(event: in out Ada.Real_Time.Timing_Events.Timing_Event);
    private
       nextTime:Ada.Real_Time.Time;

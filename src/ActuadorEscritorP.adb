@@ -1,5 +1,5 @@
 package body ActuadorEscritorP is
-     protected body ActuadorEscritor is
+     protected body ActuadorEscritor(planta: access produccionPlanta) is
       procedure iniciar is
       begin
          null;
@@ -10,7 +10,7 @@ package body ActuadorEscritorP is
 
       end iniciar;
                --abrir, cerrar, aumentar...
-      procedure escribir(dato:ActuadorDato; planta: access produccionPlanta) is
+      procedure escribir(dato:ActuadorDato) is
       begin
          null;   --aqui delay until 6 decimas
 
@@ -46,24 +46,6 @@ package body ActuadorEscritorP is
          --Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);
       end Timer;
    end ActuadorEscritor;
-
-   protected body produccionPlanta is
-      function readPlanta return Integer is
-      begin
-         return prodPlanta;
-      end readPlanta;
-
-      procedure increment is
-      begin
-         prodPlanta:=prodPlanta+1;
-      end increment;
-
-      procedure decrement is
-      begin
-         prodPlanta:=prodPlanta-1;
-      end decrement;
-
-   end produccionPlanta;
 
 end ActuadorEscritorP;
 
