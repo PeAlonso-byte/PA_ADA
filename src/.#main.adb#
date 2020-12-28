@@ -13,9 +13,9 @@ use ActuadorEscritorP;
 
 procedure Main is
 
-   task type tareaPlanta is  --cada planta
-      entry leer(datoEntrada:out SensorDato); --cada vez que se quiera leer se manda mensaje aqui desde control
-      entry escribir(datoSalida:ActuadorDato);  --en el parametro se devuelve el dato de la lectura correspondiente
+   task type tareaPlanta is
+      entry leer(datoEntrada:out SensorDato);
+      entry escribir(datoSalida:ActuadorDato);
    end tareaPlanta;
 
    task body tareaPlanta is  --crear 3 instancias
@@ -84,6 +84,12 @@ procedure Main is
          else
             Text_IO.Put_Line("ESTABLE - CONSUMO: " & consumoCiudad'Img & " PRODUCCION: " &consumoTotalPlantas'Img);
          end if;
+
+         if consumoDiff > 0 then
+            datoSalida:=0; -- Si datoSalida = 0 quiere decir incrementar
+         elsif consumoDiff < 0 then
+            datoSalida:=1; -- Si datoSalida = 0 quiere decir decrementar
+         end if;d
 
          if consumoDiff >= 3 then
             pl1.escribir(datoSalida);
