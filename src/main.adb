@@ -20,6 +20,8 @@ procedure Main is
    task body tareaPlanta is  --crear 3 instancias
       entrada:SensorLector; --cada planta
       salida:ActuadorEscritor;
+      flagEscribir:Integer:=0;
+      tempPlanta:ActuadorDato;
    begin
       entrada.iniciar;
       loop
@@ -32,34 +34,37 @@ procedure Main is
             end leer;
          or
             accept escribir(datoSalida:ActuadorDato) do
-                salida.escribir(datoSalida);
+               flagEscribir:=1; -- Guardamos el flag y escribimos fuera del select para asi no bloquear el algoritmo de control durante 1.8s ya que tenemos que leer cada 1s
+               tempPlanta:=datoSalida;
             end escribir;
-            --delay 6 decimas salida.escribir(datoSalida);
          end select;
+
+         if flagEscribir = 1 then
+            flagEscribir:=0;
+            salida.escribir(tempPlanta);
+         end if;
+
       end loop;
    end tareaPlanta;
 
-   --3 instancias, cada una 1 planta
-   t:tareaPlanta;
-   t2:tareaPlanta;
-   t3:tareaPlanta;
-
-   task type AlgoritmoControl(entrada:access SensorLector; salida:access ActuadorEscritor);
+   task type AlgoritmoControl(pl1:access tareaPlanta;pl2:access tareaPlanta;pl3:access tareaPlanta);
    task body AlgoritmoControl is
       datoEntrada:SensorDato;
       datoSalida:ActuadorDato;
    begin
       loop
-         t.leer(datoEntrada);
+         pl1.leer(datoEntrada);
          --procesar datos
-         t.escribir(datoSalida);
+         pl1.escribir(datoSalida);
       end loop;
    end AlgoritmoControl;
 
 
-   sl:aliased SensorLector;
-   ae:aliased  ActuadorEscritor;
-   control:AlgoritmoControl(sl'Access, ae'Access);
+   planta1:aliased tareaPlanta; -- Utilizamos aliased para asi obtener la referencia a la variable posteriormente mediante Access.
+   planta2:aliased tareaPlanta;
+   planta3:aliased tareaPlanta;
+
+   control:AlgoritmoControl(planta1'Access, planta2'Access, planta3'Access);
 begin
    --  Insert code here.
    null;

@@ -19,8 +19,8 @@ package body SensorLectorP is
       begin
          --obtener el dato y cargarlo en leyendo
          --hacer delay until para 15 decimas, independiente con las otras plantas
-         retardo:=Ada.Real_Time.Clock+temp;
-         delay until retardo;
+         retardoS:=Ada.Real_Time.Clock+tempS;
+         delay until retardoS;
 
          datoDisponible:=True;
          nextTime:=nextTime+entradaMedicion; -- Para que una vez que entre, se hagan las lecturas cada segundo.
