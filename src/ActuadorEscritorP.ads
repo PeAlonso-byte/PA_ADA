@@ -8,7 +8,7 @@ with ProduccionPlantaP;
 use ProduccionPlantaP;
 package ActuadorEscritorP is
    type ActuadorDato is new Integer;
-   protected type ActuadorEscritor(planta: access produccionPlanta) is
+   protected type ActuadorEscritor(planta: access produccionPlanta; ID: Integer) is
 
       pragma Interrupt_Priority(System.Interrupt_Priority'Last);
       procedure iniciar;

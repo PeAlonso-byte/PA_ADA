@@ -13,7 +13,7 @@ package body SensorLectorP is
 
          dato:=leyendo;
          datoDisponible:=False;
-         Text_IO.Put_Line("Leer");
+         --Text_IO.Put_Line("Leer");
       end leer;
 
       procedure Timer(event:in out Ada.Real_Time.Timing_Events.Timing_Event) is

@@ -21,6 +21,11 @@ package body ActuadorEscritorP is
          nextTime:=Clock+salidaPeriodo; -- Las operaciones se realizan en el timer a los 3 segundos.
          if flagE = 0 then
             Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);
+            if escribiendo = 1 then
+               Text_IO.Put_Line("Se ha mandado decrementar. Planta: " &ID'Img);
+            elsif escribiendo = 0 then
+              Text_IO.Put_Line("Se ha mandado incrementar. Planta: " &ID'Img);
+            end if;
             flagE:=1;
          end if;
 
@@ -33,12 +38,8 @@ package body ActuadorEscritorP is
 
          if escribiendo = 1 then
             planta.decrement;
-            Text_IO.Put_Line("Decrementando");
-         elsif escribiendo = -1 then
+         elsif escribiendo = 0 then
             planta.increment;
-            Text_IO.Put_Line("Incrementando");
-         else
-            Text_IO.Put_Line("Estable");
          end if;
          flagE:=0;
 
