@@ -38,20 +38,25 @@ procedure Main is
       contadorProduccion: aliased produccionPlanta;
       entrada:SensorLector(contadorProduccion'Access); --cada planta
       salida:ActuadorEscritor(contadorProduccion'Access, ID);
+      --lastMes:Ada.Real_Time.Time;
+      --tempMes:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(5000);
    begin
       entrada.iniciar;
       loop
          select
+
             accept leer(datoEntrada:out SensorDato) do
                --no hacer el delay aqui dentro,hacerlo fuera del end select
                --hacer aqui lo minimo posible
                entrada.leer(datoEntrada);
+               --lastMes:=Ada.Real_Time.Clock;
                --devolver el dato
             end leer;
          or
             accept escribir(datoSalida:ActuadorDato) do
                flagEscribir:=1; -- Guardamos el flag y escribimos fuera del select para asi no bloquear el algoritmo de control durante 1.8s ya que tenemos que leer cada 1s
                tempPlanta:=datoSalida;
+               --lastMes:=Ada.Real_Time.Clock;
             end escribir;
          end select;
 
@@ -64,13 +69,14 @@ procedure Main is
             end if;
 
          end if;
-
+         --delay until lastMes+tempMes;
+	 --Text_IO.Put_Line("Alerta MONITORIZACION");
       end loop;
    end tareaPlanta;
 
    maxConsumoCiudad: constant SensorDato:=90;
    minConsumoCiudad: constant SensorDato:=15;
-   consumoCiudad:SensorDato:=90; -- Creamos el consumo de la ciudad que irá variando con el tiempo, de forma aleatoria.
+   consumoCiudad:SensorDato:=35; -- Creamos el consumo de la ciudad que irá variando con el tiempo, de forma aleatoria.
 
    task type ControlCiudad;
    task body ControlCiudad is
@@ -133,6 +139,8 @@ procedure Main is
             datoSalida:=0; -- Si datoSalida = 0 quiere decir incrementar
          elsif consumoDiff < 0 then
             datoSalida:=1; -- Si datoSalida = 0 quiere decir decrementar
+         else
+            datoSalida:=-1;
          end if;
 
 
