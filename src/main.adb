@@ -76,7 +76,7 @@ procedure Main is
 
    maxConsumoCiudad: constant SensorDato:=90;
    minConsumoCiudad: constant SensorDato:=15;
-   consumoCiudad:SensorDato:=35; -- Creamos el consumo de la ciudad que irá variando con el tiempo, de forma aleatoria.
+   consumoCiudad:SensorDato:=15; -- Creamos el consumo de la ciudad que irá variando con el tiempo, de forma aleatoria.
 
    task type ControlCiudad;
    task body ControlCiudad is
@@ -229,10 +229,6 @@ procedure Main is
          else
             Text_IO.Put_Line("ESTABLE - CONSUMO: " & consumoCiudad'Img & " PRODUCCION: " &consumoTotalPlantas'Img);
          end if;
-
-
-
-
 
          retardoA:= Ada.Real_Time.Clock+tempA; -- Se añade un retardo a la tarea control para que se ejecute cada 1s
 	 delay until retardoA;
