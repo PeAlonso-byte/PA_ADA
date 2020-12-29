@@ -1,5 +1,5 @@
 package body SensorLectorP is
-      protected body SensorLector(planta: access produccionPlanta) is
+      protected body SensorLector is
       procedure iniciar is --arranca el temporizador una vez haya pasado un intervalo de tiempo
       begin
          datoDisponible:=False;

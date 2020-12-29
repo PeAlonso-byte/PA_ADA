@@ -23,7 +23,6 @@ package ActuadorEscritorP is
       retardoE:Ada.Real_Time.Time;
       tempE:Ada.Real_Time.Time_Span:=Ada.Real_Time.Milliseconds(600);
       flagE:Integer:=0;
-      prodPlanta: produccionPlanta;
    end ActuadorEscritor;
 
 end ActuadorEscritorP;

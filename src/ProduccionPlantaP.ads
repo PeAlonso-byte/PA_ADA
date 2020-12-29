@@ -1,12 +1,12 @@
 with System;
 package ProduccionPlantaP is
-
+   type SensorDato is new Integer;
    protected type produccionPlanta is
-      function readPlanta return Integer;
+      function readPlanta return SensorDato;
       procedure increment;
       procedure decrement;
    private
-      prodPlanta:Integer:=15;
+      prodPlanta:SensorDato:=15;
    end produccionPlanta;
 end ProduccionPlantaP;
 

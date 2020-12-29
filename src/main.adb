@@ -109,19 +109,19 @@ procedure Main is
             Text_IO.Put_Line("INCREMENTANDO PRODUCCION PLANTA 2");
          elsif consumoDiff = 1 then
             pl1.escribir(datoSalida);
-            Text_IO.Put_Line("INCREMENTANDO PRODUCCION PLANTA 1");
+            Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 1");
          elsif consumoDiff <= -3 then
             pl1.escribir(datoSalida);
             Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 1");
             pl2.escribir(datoSalida);
-            Text_IO.Put_Line("DECREMENTANDOINCREMENTANDO PRODUCCION PLANTA 2");
+            Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 2");
             pl3.escribir(datoSalida);
-            Text_IO.Put_Line("DECREMENTANDOINCREMENTANDO PRODUCCION PLANTA 3");
+            Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 3");
          elsif consumoDiff = -2 then
             pl1.escribir(datoSalida);
             Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 1");
             pl2.escribir(datoSalida);
-            Text_IO.Put_Line("DECREMENTANDOINCREMENTANDO PRODUCCION PLANTA 2");
+            Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 2");
          elsif consumoDiff = -1 then
             pl1.escribir(datoSalida);
             Text_IO.Put_Line("DECREMENTANDO PRODUCCION PLANTA 1");

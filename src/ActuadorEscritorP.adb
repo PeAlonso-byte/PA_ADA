@@ -1,5 +1,5 @@
 package body ActuadorEscritorP is
-     protected body ActuadorEscritor(planta: access produccionPlanta) is
+     protected body ActuadorEscritor is
       procedure iniciar is
       begin
          null;
@@ -21,7 +21,6 @@ package body ActuadorEscritorP is
          nextTime:=Clock+salidaPeriodo; -- Las operaciones se realizan en el timer a los 3 segundos.
          if flagE = 0 then
             Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);
-            Text_IO.Put_Line("Se ha mandado actuar");
             flagE:=1;
          end if;
 
@@ -33,14 +32,15 @@ package body ActuadorEscritorP is
          --escribir dato escribiendo, aumentar o reducir la produccion
 
          if escribiendo = 1 then
-            --prodPlanta.increment;
-            null;
+            planta.decrement;
+            Text_IO.Put_Line("Decrementando");
          elsif escribiendo = -1 then
-            --prodPlanta.decrement;
-            null;
+            planta.increment;
+            Text_IO.Put_Line("Incrementando");
+         else
+            Text_IO.Put_Line("Estable");
          end if;
          flagE:=0;
-         null;
 
          --considerar si hay que activar el timer o no
          --Ada.Real_Time.Timing_Events.Set_Handler(salidaJitterControl, nextTime, Timer'Access);

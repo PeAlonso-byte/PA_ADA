@@ -1,6 +1,6 @@
 package body ProduccionPlantaP is
       protected body produccionPlanta is
-      function readPlanta return Integer is
+      function readPlanta return SensorDato is
       begin
          return prodPlanta;
       end readPlanta;
@@ -16,6 +16,6 @@ package body ProduccionPlantaP is
       end decrement;
 
    end produccionPlanta;
-end SensorLectorP;
+end ProduccionPlantaP;
 
 
