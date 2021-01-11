@@ -24,9 +24,7 @@ package body ActuadorEscritorP is
             if escribiendo = 1 then
                Text_IO.Put_Line("Se ha mandado decrementar. Planta: " &ID'Img);
             elsif escribiendo = 0 then
-               Text_IO.Put_Line("Se ha mandado incrementar. Planta: " &ID'Img);
-            else
-               Text_IO.Put_Line("Estable. Planta: " &ID'Img);
+              Text_IO.Put_Line("Se ha mandado incrementar. Planta: " &ID'Img);
             end if;
             flagE:=1;
          end if;
